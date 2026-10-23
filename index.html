@@ -30,11 +30,26 @@
             const h3 = document.querySelector('h3');
             const div = document.querySelector('.reaction');
             let green = false;
+            let finTime = 0;
+            greenTime = 0;
             div.addEventListener('click', () => {
+                if (finTime == 0) {
+                    finTime = parseInt(5000 - Math.random() * 3000);
+                    setTimeout(() => {
+                        greenTime = Date.now();
+                        green = true;
+                        div.style.backgroundColor = 'lime';
+                    }, finTime);
+                }
                 div.style.backgroundColor = 'red';
                 h3.textContent = 'Click when box becomes green';
-                if (green){
-                    alert(1)
+                if (green) {
+                    h3.textContent = 'Your Reaction Time is: ';
+                    h3.textContent += Date.now() - greenTime;
+                    h3.textContent += 'ms';
+                    green = false;
+                    finTime = 0;
+                    div.style.backgroundColor = 'rgb(0, 132, 255)';
                 }
             });
         </script>
